@@ -42,6 +42,22 @@ class App extends React.Component {
     }
   }
 
+  adoptPet = petId => {
+    
+    // let petId = event.target.id
+    this.setState((preState)=>{
+      return({
+        pets: preState.pets.map(pet=>{
+          if(pet.id===petId){
+            return {...pet, isAdopted: true}
+          } else {
+            return pet
+          }
+        })
+      })
+    })
+  }
+
   render() {
     return (
       <div className="ui container">
@@ -54,7 +70,7 @@ class App extends React.Component {
               <Filters onChangeType={this.changeFilter} onFindPetsClick={this.findClick}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser pets={this.state.pets} onAdoptPet={this.adoptPet}/>
             </div>
           </div>
         </div>
