@@ -23,16 +23,22 @@ class App extends React.Component {
     })
   }
 
+  setPetsState = data => {
+    this.setState({
+      pets: data
+    })
+  }
+
   findClick = event => {
     let filter = this.state.filters.type
     if (filter==='all') {
       fetch('/api/pets')
       .then(response=>response.json())
-      .then(data=>console.log(data))
+      .then(data=>this.setPetsState(data))
     } else {
       fetch(`/api/pets?type=${filter}`)
       .then(response=>response.json())
-      .then(data=>console.log(data))
+      .then(data=>this.setPetsState(data))
     }
   }
 
